@@ -1,0 +1,53 @@
+{% load staticfiles %}
+{% load socialaccount %}
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'nutri/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'gradethem/css/all.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <!--navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'nutri:index' %}">NUTRIOMI</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'nutri:add_patient' %}">Añadir paciente</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contáctanos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">CDP (Calculadora de distribución e porcentaje)</a>
+      </li>
+    </ul>
+    {% if user.is_authenticated %}
+      <div class="form-inline">
+        <a class="text-danger mr-3 my-2 my-sm-0" href="{% url 'nutri:nlogout' %}">Salir</a>
+      </div>
+    {% endif %}
+  </div>
+</nav>
+<!-- CONTENT CONTAINER -->
+    <main role="main" class="container main-container-fxd-nav">
+      {% block content %}
+      {% endblock %}
+    </main>
+  {% if messages %}
+  <div>
+    <ul>
+      {% for message in messages %}
+        <li>{{message}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</body>  
+</html>

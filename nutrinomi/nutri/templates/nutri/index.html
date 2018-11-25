@@ -1,0 +1,39 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-sm-6">
+  	{% if patients %}
+	<h2 class="text-center" style="margin-top: 2em;">Tus pacientes:</h2>
+      {% for patient in patients %}
+      <div class="card" style="margin-top: 1em;">
+      	<div class="card-header">
+      	  <a class="text-primary text-capitalize" href="{% url 'nutri:patient' patient.id %}">{{patient.name}}</a>
+      	</div>
+      	<div class="card-body">
+      	  <div class="row justify-content-between">
+      	  	<div class="col-sm-3 col-12 mt-3"><span class="text-success">Genero:</span></br>
+      	  	  {% if patient.gener == 'MA' %}
+      	  	  Masculino
+      	  	  {% else %}
+      	  	  Femenino
+      	  	  {% endif %}
+      	  	</div>
+      	  	<div class="col-sm-3 col-12 mt-3"><span class="text-info">Telefono:</span></br>{{patient.phone}}</div>
+      	  	<div class="col-sm col-12 mt-3"><span class="text-secondary">Nacimiento:</span></br>
+      	  	{{patient.birth_date}}</div>
+      	  </div>
+      	</div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <h4 class="text-center" style="margin-top: 2em;">Aún no tienes pacientes</h4>
+	{% endif %}
+  <div class="row justify-content-center mt-5">
+    <a href="{% url 'nutri:add_patient' %}">
+      <button class="btn btn-secondary">Añadir paciente</button>
+    </a>
+  </div>
+  </div>
+</div>
+{% endblock %}

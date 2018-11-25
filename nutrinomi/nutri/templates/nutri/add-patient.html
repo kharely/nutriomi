@@ -1,0 +1,36 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-6" style="margin-top: 2em;">
+  	<form action="{% url 'nutri:add_patient' %}" method="post">
+      {% csrf_token %}
+  	  <label for="name">Nombre:</label>
+  	  <input class="form-control" type="text" name="name" placeholder="Gustavo Peréz">
+  	  <label for="address">Dirección del paciente:</label>
+  	  <input class="form-control" type="text" name="address" placeholder="Av. Olimpica #3578">
+  	  <label for="phone">Teléfono:</label>
+  	  <input class="form-control" type="text" name="phone" placeholder="3333333">
+  	  <div class="form-group row">
+        <label for="birth_date" class="col-2 col-form-label">Fecha de nacimiento</label>
+        <div class="col-4" style="margin-top: 1em;">
+          <input class="form-control" type="date" id="birth_date" name="birth_date">
+        </div>
+      </div>
+      <div class="col">
+  	    <div class="radio">
+          <input type="radio" name="gener" value="FE"/>
+          <label for="gener" style="margin-left:.5em;">Femenino
+          </label>
+        </div>
+        <div class="radio">
+          <input type="radio" name="gener" value="MA"/>
+          <label for="gener" style="margin-left:.5em;">Masculino
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Añade paciente</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

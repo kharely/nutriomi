@@ -1,0 +1,18 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-6" style="margin-top: 2em;">
+  	<h2 class="text-center text-uppercase" style="margin-top: 2em; ">{{patient.name}}</h2>
+  	<form action="{% url 'nutri:add_statistic' patient.id %}" method="post">
+      {% csrf_token %}
+      <label for="weight" class="mt-3">Peso:</label>
+  	  <input class="form-control" type="text" name="weight" placeholder="60.9">
+  	  <label for="weight" class="mt-3">Altura:</label>
+  	  <input class="form-control" type="text" name="height" placeholder="1.70">
+  	  <label for="diet" class="mt-3">Dieta:</label>
+  	  <textarea class="form-control" placeholder="Que clase de dieta recibio el paciente" name="diet"></textarea>
+  	  <button type="submit" class="btn btn-info mt-3">Enviar</button>
+    </form>
+
+{% endblock %}
