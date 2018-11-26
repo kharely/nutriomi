@@ -25,10 +25,10 @@ class Patient(models.Model):
  
 
 class Diet(models.Model):
-     name = models.CharField(max_length=20)
-     description = models.CharField(max_length=500)
-     quantity_cal = models.FloatField(max_length=5)
-     timestamp = models.DateTimeField(auto_now_add=True)   
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=600)
+    quantity_cal = models.FloatField(max_length=5)
+    timestamp = models.DateTimeField(auto_now_add=True)   
 
 
 class Statistics(models.Model):

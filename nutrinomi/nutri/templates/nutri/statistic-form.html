@@ -10,8 +10,15 @@
   	  <input class="form-control" type="text" name="weight" placeholder="60.9">
   	  <label for="weight" class="mt-3">Altura:</label>
   	  <input class="form-control" type="text" name="height" placeholder="1.70">
-  	  <label for="diet" class="mt-3">Dieta:</label>
-  	  <textarea class="form-control" placeholder="Que clase de dieta recibio el paciente" name="diet"></textarea>
+  	  {% if diets %}
+        <label for="diet" class="mt-3">Dieta:</label>
+  	    <select class="custom-select" id="inputGroupSelect01">
+          <option selected>Dieta...</option>
+          {% for diet in diets %}
+            <option value="{{diet.id}}">{{diet.name}}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
   	  <button type="submit" class="btn btn-info mt-3">Enviar</button>
     </form>
 
