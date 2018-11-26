@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Patient, Statistics
+from .models import Patient, Statistics, Diet
 from .forms import PatientForm, StatisticForm
 
 @login_required
@@ -30,16 +30,19 @@ def patient(request, patient_id):
 @login_required
 def add_statistic(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
+    diets = Diet.objects.all()
     form = None
     if request.method == 'POST':
         form = StatisticForm(request.POST)
+        print(form)
         if form.is_valid():
             stat = form.save(commit=False)
             stat.patient = patient
             stat.save()
+            stat.algorithm()
             return HttpResponseRedirect(reverse('nutri:patient',
                                         args=(patient_id,)))
-    context = {'patient': patient, 'form': form}
+    context = {'patient': patient,'diets':diets ,'form': form}
     return render(request, 'nutri/statistic-form.html', context)
 
 
