@@ -34,7 +34,6 @@ def add_statistic(request, patient_id):
     form = None
     if request.method == 'POST':
         form = StatisticForm(request.POST)
-        print(form)
         if form.is_valid():
             stat = form.save(commit=False)
             stat.patient = patient
