@@ -22,7 +22,13 @@ class Patient(models.Model):
         age_num = days_difference/365.2425
         age = int(age_num)
         return age
-    
+ 
+
+class Diet(models.Model):
+     name = models.CharField(max_length=20)
+     description = models.CharField(max_length=500)
+     quantity_cal = models.FloatField(max_length=5)
+     timestamp = models.DateTimeField(auto_now_add=True)   
 
 
 class Statistics(models.Model):
@@ -30,12 +36,12 @@ class Statistics(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     weight = models.CharField(max_length=5)
     height = models.CharField(max_length=6)
-    miffin = models.FloatField()
-    harris = models.FloatField()
-    valencia = models.FloatField()
-    diet = models.ForeingKey(Diet, on_delete=models.CASCADE)
+    miffin = models.FloatField(max_length=5)
+    harris = models.FloatField(max_length=5)
+    valencia = models.FloatField(max_length=5)
+    diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
 
-    def save(self):
+    def algorithm(self):
         w = float(self.weight)
         h = float(self.height)
         if self.patient.gener.MALE:
@@ -51,8 +57,3 @@ class Statistics(models.Model):
 # calorias / peso
 
 
-class Diet(models.Model):
-     name = models.Charfield()
-     description = models.CharField()
-     quantity_cal = models.FloatField()
-     timestamp = models.DateTimeField()
