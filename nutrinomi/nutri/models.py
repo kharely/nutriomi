@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 from datetime import date
 
@@ -36,9 +37,12 @@ class Statistics(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     weight = models.CharField(max_length=5)
     height = models.CharField(max_length=6)
-    miffin = models.FloatField(max_length=10, null=True)
-    harris = models.FloatField(max_length=10, null=True)
-    valencia = models.FloatField(max_length=10, null=True)
+    miffin = models.FloatField(validators=[
+        MinValueValidator(0.0), MaxValueValidator(10000.0)], default=0.0)
+    harris = models.FloatField(validators=[
+        MinValueValidator(0.0), MaxValueValidator(10000.0)],default=0.0)
+    valencia = models.FloatField(validators=[
+        MinValueValidator(0.0), MaxValueValidator(10000.0)], default=0.0)
     diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
 
     def algorithm(self):
