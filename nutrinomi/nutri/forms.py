@@ -10,4 +10,4 @@ class PatientForm(forms.ModelForm):
 class StatisticForm(forms.ModelForm):
     class Meta:
         model = Statistics
-        fields = ['weight', 'height', 'diet']
+        fields = ['weight', 'height','diet']

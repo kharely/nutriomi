@@ -36,22 +36,25 @@ class Statistics(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     weight = models.CharField(max_length=5)
     height = models.CharField(max_length=6)
-    miffin = models.FloatField(max_length=5)
-    harris = models.FloatField(max_length=5)
-    valencia = models.FloatField(max_length=5)
+    miffin = models.FloatField(max_length=10, null=True)
+    harris = models.FloatField(max_length=10, null=True)
+    valencia = models.FloatField(max_length=10, null=True)
     diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
 
     def algorithm(self):
         w = float(self.weight)
         h = float(self.height)
-        if self.patient.gener.MALE:
-            self.harris = 66.473 + (13.7516 * w) + (5.0033 * h) - (6.755 * self.patient.years_old )
-            self.miffin = (10 * w) + (6.25 * h) - (5 * self.patient.years_old) + 5 
-            self.valencia = (13.37 * w + 747)
+        if self.patient.gener == 'MA':
+            harris = ((66.473 + ((13.7516 * w) + (5.0033 * h))) - (6.755 * self.patient.years_old ))
+            miffin = (((10 * w) + (6.25 * h)) - ((5 * self.patient.years_old) + 5) )
+            valencia = ((13.37 * w) + 747)
         else:
-            self.harris = 655.0955 + (9.5634 * w) + (1.8495 * h) - (4.6756 * self.patient.years_old)
-            self.miffin = (10 * w) + (6.25 * h) - (5 * self.patient.years_old) + 161
-            self.valencia = (14.21 * w + 429)
+            harris = ((655.0955 + ((9.5634 * w) + (1.8495 * h))) - (4.6756 * self.patient.years_old))
+            miffin = (((10 * w) + (6.25 * h)) - ((5 * self.patient.years_old) + 161))
+            valencia = ((14.21 * w) + 429)
+        self.harris = round(harris)
+        self.miffin = round(miffin)
+        self.valencia = round(valencia)
         self.save()
 # calorias (kgs) = dependiendo que quieres harris/miffin/valencia
 # calorias / peso

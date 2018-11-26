@@ -34,11 +34,12 @@ def add_statistic(request, patient_id):
     form = None
     if request.method == 'POST':
         form = StatisticForm(request.POST)
+        print(form)
         if form.is_valid():
             stat = form.save(commit=False)
             stat.patient = patient
-            stat.algorithm()
             stat.save()
+            stat.algorithm()
             return HttpResponseRedirect(reverse('nutri:patient',
                                         args=(patient_id,)))
     context = {'patient': patient,'diets':diets ,'form': form}
