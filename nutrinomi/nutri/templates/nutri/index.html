@@ -21,7 +21,7 @@
       	  	</div>
       	  	<div class="col-sm-3 col-12 mt-3"><span class="text-info">Telefono:</span></br>{{patient.phone}}</div>
       	  	<div class="col-sm col-12 mt-3"><span class="text-secondary">Nacimiento:</span></br>
-      	  	{{patient.birth_date}}</div>
+      	  	{{patient.birth_date|date:"Y-m-d"}}</div>
       	  </div>
       	</div>
       </div>
@@ -33,6 +33,7 @@
     <a href="{% url 'nutri:add_patient' %}">
       <button class="btn btn-secondary">Añadir paciente</button>
     </a>
+    <a href="{% url 'nutri:diets' %}" class="ml-3 btn btn-warning">ver dietas</a>
   </div>
   </div>
 </div>
