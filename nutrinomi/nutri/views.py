@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Patient, Statistics, Diet
-from .forms import PatientForm, StatisticForm, DietForm
+from .forms import PatientForm, StatisticForm, DietForm, CalculateForm
 
 @login_required
 def index(request):
@@ -44,6 +44,25 @@ def stat(request, stat_id):
     harris = stat.harris/stat.weight
     valencia = stat.valencia/stat.weight
     context = {'stat': stat, 'miffin': miffin, 'harris': harris, 'valencia': valencia}
+    if request.method == 'POST':
+        form = CalculateForm(request.POST)
+        if form.is_valid():
+            carbohydrates = form.cleaned_data['carbohydrates']
+            carb_m = (miffin/carbohydrates)/4
+            carb_h = (harris/carbohydrates)/4
+            carb_v = (valencia/carbohydrates)/4
+            protein = form.cleaned_data['protein']
+            pro_m = (miffin/protein)/4
+            pro_h = (harris/protein)/4
+            pro_v = (valencia/protein)/4
+            lipid = form.cleaned_data['lipid']
+            lip_m = (miffin/lipid)/9
+            lip_h = (harris/lipid)/9
+            lip_v = (valencia/lipid)/9
+            context = {'stat':stat, 'miffin':miffin, 'harris':harris, 'valencia':valencia,
+                       'carb_m': carb_m, 'carb_h': carb_h,'carb_v':carb_v,
+                       'pro_m': pro_m, 'pro_h': pro_h, 'pro_v': pro_v,
+                       'lip_m': lip_m, 'lip_h': lip_h, 'lip_v':lip_v,}
     return render(request, 'nutri/calories-per-weight.html', context)
 
 

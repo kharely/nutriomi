@@ -18,7 +18,53 @@
       <span class="font-weight-bold">harris con relacion al peso: </span> <span>{{harris}}</span></p>
       <p>
       <span class="font-weight-bold">valencia con relacion al peso:</span><span>{{valencia}}</span></p>
-  	</div>	
+  	</div>
+    <div class="col">
+      <form action="{% url 'nutri:cal_per_w' stat.id%}" method="post">
+      {% csrf_token %}
+      <label for="quantity_cal">Hidratos de carbono</label>
+      <input class="form-control" name="carbohydrates" id="values" type="number" value="40">
+      <label for="quantity_cal">Proteina</label>
+      <input class="form-control" name="protein" id="values" type="number" value="40">
+      <label for="quantity_cal">Lipidos</label>
+      <input class="form-control" name="lipid" id="values" type="number" value="40">
+      <button class="btn btn-warning float-right mt-3" type="submit">Calcula</button>
+    </form>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    {% if carb_m %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">tipo</th>
+            <th scope="col">mifflin</th>
+            <th scope="col">harris</th>
+            <th scope="col">valencia</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">Hidratos de carbono</th>
+          <td>{{carb_m}}</td>
+          <td>{{carb_h}}</td>
+          <td>{{carb_v}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Proteina</th>      
+          <td>{{pro_m}}</td>
+          <td>{{pro_h}}</td>
+          <td>{{pro_v}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Lipidos</th>
+          <td>{{lip_m}}</td>
+          <td>{{lip_h}}</td>
+          <td>{{lip_v}}</td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
   </div>
   <div class="row justify-content-center">
   	<a href="{% url 'nutri:cal' stat.patient.id %}" class="btn btn-secondary">Regresar</a>

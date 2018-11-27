@@ -1,6 +1,12 @@
 from django import forms
 from nutri.models import Patient, Statistics, Diet
 
+class CalculateForm(forms.Form):
+    carbohydrates = forms.FloatField(label='carbohydrates', required=True)
+    protein = forms.FloatField(label='protein', max_value=7000, required=True)
+    lipid = forms.FloatField(label='lipid', required=True)
+
+
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
