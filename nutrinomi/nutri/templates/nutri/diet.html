@@ -1,0 +1,30 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 mt-3"><h3 class="text-center">Dieta</h3></div>
+  <div class="col-8">
+    <div class="card mt-5">
+  	  <div class="card-header text-center">{{diet.name}}</div>
+  	  <div class="card-body">
+  	    <div class="row">
+  	  	  <div class="col-12 text-center font-weight-bold">Descripción</div>
+  	  	  <div class="col-12 text-justify">{{diet.description}}</div>
+  	    </div>
+  	    <div class="row justify-content-between mt-3 text-primary">
+  	  	  <div class="col-5">
+  	  		<p class="font-weight-bold">Aportación de calorías: 
+  	  			<div>{{diet.quantity_cal}}</div></p>
+  	  	  </div>
+  	  	  <div class="col-5">
+  	  		<p class="font-weight-bold">Fecha en la que fue creada:
+  	  		<div>{{diet.timestamp}}</div></p>
+  	  	  </div>
+  	    </div>
+  	  </div>
+    </div>
+    <a href="{% url 'nutri:diets'%}" class=" mt-5 btn btn-secondary">Ver todas las dietas</a>
+    <a href="{% url 'nutri:diet_form'%}" class=" mt-5 ml-2 btn btn-warning">Crear nueva dieta</a>
+  </div>
+</div>
+{% endblock %}

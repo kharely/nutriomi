@@ -1,0 +1,38 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+ <h3 class="text-center text-success mt-5">Consultas</h3>
+</div>
+<div class="row justify-content-center">
+  <h3 class="mt-5 text-primary">{{patient.name}}</h3>
+</div>
+<div class="row">
+  {% for stat in statistics %}
+    <div class="col-sm-6 col-12 mt-2">
+      <div class="card">
+      	<div class="card-body">
+      	  <div class="card-title"><h5>{{stat.timestamp|date:"f j N Y"}}</h5></div>
+      	  <div class="card-text">
+      	    <a href="{% url 'nutri:diet' stat.diet.id %}" class="text-center">Dieta: {{stat.diet.name}}</a>
+      	    <div class="mt-3"><span class="text-primary font-weight-bold">Peso:</span>{{stat.weight}}</div>
+      	    <div class="mt-2 mb-3"><span class="text-primary font-weight-bold">altura:</span>
+      	    {{stat.height}}</div>
+      	    <div class="row">
+      	      <div class="col">
+      	      	<h5>Calorias</h5>
+      	        <div class="mr-3"><span class="text-primary font-weight-bold">Harris: </span>{{stat.harris}}</div>
+      	        <div class="mr-3"><span class="text-primary font-weight-bold">Mifflin: </span>{{stat.miffin}}</div>
+      	        <div class="mr-3"><span class="text-primary font-weight-bold">Valencia:</span>{{stat.valencia}}</div>
+      	      </div>
+      	      <div class="col align-self-end">
+      	        <a href="{% url 'nutri:cal_per_w' stat.id %}" class="float-right mr-3 btn btn-sm btn-secondary">Transformacion por peso</a>
+      	      </div>
+      	    </div>
+      	  </div>
+      	</div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
