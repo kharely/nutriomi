@@ -1,0 +1,35 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 mt-5">
+    <h3 class="text-center">Todas las dietas</h3>
+    <a href="{% url 'nutri:diet_form' %}" class="float-right btn btn-warning">Crear dieta</a>
+  </div>
+  {% if diets %}
+    {% for diet in diets %}
+      <div class="col-12 col-sm-6">
+        <div class="card mt-5">
+  	      <div class="card-header text-center">{{diet.name}}</div>
+  	      <div class="card-body">
+  	        <div class="row">
+  	  	      <div class="col-12 text-center font-weight-bold">Descripción</div>
+  	  	      <div class="col-12 text-justify">{{diet.description}}</div>
+  	        </div>
+  	        <div class="row justify-content-between mt-3 text-primary">
+  	  	      <div class="col-5">
+  	  		    <p class="font-weight-bold">Aportación de calorías: 
+  	  			  <div>{{diet.quantity_cal}}</div></p>
+  	  	      </div>
+  	  	      <div class="col-5">
+  	  		    <p class="font-weight-bold">Fecha en la que fue creada:
+  	  		    <div>{{diet.timestamp|date:"Y-m-d"}}</div></p>
+  	  	      </div>
+  	        </div>
+  	      </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

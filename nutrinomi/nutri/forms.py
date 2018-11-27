@@ -1,5 +1,5 @@
 from django import forms
-from nutri.models import Patient, Statistics
+from nutri.models import Patient, Statistics, Diet
 
 class PatientForm(forms.ModelForm):
     class Meta:
@@ -11,3 +11,8 @@ class StatisticForm(forms.ModelForm):
     class Meta:
         model = Statistics
         fields = ['weight', 'height','diet']
+
+class DietForm(forms.ModelForm):
+    class Meta:
+        model = Diet
+        fields = ['name','description','quantity_cal']

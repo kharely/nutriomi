@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Patient, Statistics, Diet
-from .forms import PatientForm, StatisticForm
+from .forms import PatientForm, StatisticForm, DietForm
 
 @login_required
 def index(request):
@@ -23,9 +23,54 @@ def nutrilogout(request):
 @login_required
 def patient(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
-    statistics = Statistics.objects.filter(patient=patient)
-    context = {'patient': patient, 'statistics': statistics}
+    statistics = Statistics.objects.filter(patient=patient).order_by("-timestamp")
+    context = {'patient': patient, 'statistics': statistics, 
+              }
     return render(request, 'nutri/profile.html', context)
+
+
+@login_required
+def cal(request, patient_id):
+    patient = get_object_or_404(Patient, pk=patient_id)
+    statistics = Statistics.objects.filter(patient=patient).order_by("-timestamp")
+    context = {'patient':patient, 'statistics':statistics}
+    return render(request, 'nutri/cal.html', context)
+
+
+@login_required
+def stat(request, stat_id):
+    stat = get_object_or_404(Statistics, pk=stat_id)
+    miffin = stat.miffin/stat.weight
+    harris = stat.harris/stat.weight
+    valencia = stat.valencia/stat.weight
+    context = {'stat': stat, 'miffin': miffin, 'harris': harris, 'valencia': valencia}
+    return render(request, 'nutri/calories-per-weight.html', context)
+
+
+@login_required
+def diet(request, diet_id):
+    diet = get_object_or_404(Diet, pk=diet_id)
+    context = {'diet': diet}
+    return render(request, 'nutri/diet.html', context)
+
+
+@login_required
+def all_diets(request):
+    diets = Diet.objects.all()
+    return render(request, 'nutri/all-diets.html', {'diets':diets})
+
+
+@login_required
+def diet_form(request):
+    form = None
+    if request.method == 'POST':
+        form = DietForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('nutri:diets'))
+    context = {'form': form}
+    return render(request, 'nutri/diet-form.html', context)
+
 
 @login_required
 def add_statistic(request, patient_id):

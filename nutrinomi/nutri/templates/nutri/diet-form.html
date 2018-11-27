@@ -1,0 +1,20 @@
+{% extends 'nutri/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 text-center"><h3>Añadir dieta</h3></div>
+  <div class="col-6" style="margin-top: 2em;">
+  	<h2 class="text-center text-uppercase" style="margin-top: 2em; ">{{patient.name}}</h2>
+  	<form action="{% url 'nutri:diet_form'%}" method="post">
+      {% csrf_token %}
+      <label for="name" class="mt-3">Nombre de la dieta:</label>
+  	  <input class="form-control" type="text" name="name" placeholder="baja en grasas">
+  	  <label for="description" class="mt-3">Descripción:</label>
+  	  <textarea class="form-control" type="text" name="description" placeholder="Porfavor describe la dieta"></textarea>
+  	  <label for="number">Cantidad de calorias</label>
+  	  <input class="form-control" name="quantity_cal" type="number" value="42">
+  	  <button type="submit" class="btn btn-info mt-3">Enviar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

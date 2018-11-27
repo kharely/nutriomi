@@ -60,5 +60,3 @@ class Statistics(models.Model):
         self.miffin = round(miffin)
         self.valencia = round(valencia)
         self.save()
-# calorias (kgs) = dependiendo que quieres harris/miffin/valencia
-# calorias / peso
